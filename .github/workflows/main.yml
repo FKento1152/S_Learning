@@ -2,7 +2,7 @@ name: Deploy # 名前1（※お好きな名前をつけてください）
 on:
   push:
     branches:
-      - master()
+      - master
 
 
 jobs:
