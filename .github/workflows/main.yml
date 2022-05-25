@@ -1,4 +1,4 @@
-name: FTP-Deploy # 名前1（※お好きな名前をつけてください）
+name: FTP-Deploy # action名
 on:
   push:
     branches:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-    name: BuildProject # 名前2（※お好きな名前をつけてください）
+    name: Deploying to FTP # job名
 
     runs-on: ubuntu-latest
 
@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Sync files
-        uses: SamKirkland/FTP-Deploy-Action@4.1.0 #（※21年12月31日時点最新版は4.2です）
+        uses: SamKirkland/FTP-Deploy-Action@4.1.0
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
