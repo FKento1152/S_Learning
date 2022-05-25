@@ -1,0 +1,13 @@
+.slot_Document{
+    position:absolute;
+    padding: 10px;
+    left: 500px;
+    top: 290px;
+}
+.slot_Documetn iframe{
+    position:absolute;
+    top:80;
+    left:200;
+    width:100%;
+    height:100%;
+}

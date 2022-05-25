@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>S_learning</title>
+    <link rel="shortcut icon" href="./favicon.ico" type="image/vnd.microsoft.icon">
+</head>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="../css/bootstrap.css">
+<!--ナビゲーションバーの重なりを回避するため上部にpaddingを設定-->
+<body style="padding-top: 56px;">
+    <!--コンテンツ-->
+    <div class="container-fluid"style="background-color:white">
+        <!--ナビゲーションバー-->
+        <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-secondary">
+            <!--縮小時ハンバーガーメニューにする-->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+                aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <!--cllapse:ハンバーガーメニューに含む内容-->
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav mr-auto">
+                    <a class="navbar-brand" href="../index.html">
+                        <img src="./favicon.ico" width="30" height="30" class="d-inline-block align-top" alt="">
+                        S-learning
+                      </a>
+                      
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../index.html">トップページ <span class="sr-only">(current)</span></a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            演習資料
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+			    <a class="dropdown-item" href="doc/slot.pdf"target="_blank">スロット資料</a>
+                            <a class="dropdown-item" href="doc/gacha.pdf"target="_blank">ガチャ資料</a>
+                            <a class="dropdown-item" href="doc/hitokoto.pdf"target="_blank">掲示板資料</a>
+                            <a class="dropdown-item" href="doc/tapi.pdf"target="_blank">タピオカ資料</a>
+                            <a class="dropdown-item" href="doc/RPG.pdf"target="_blank">RPG資料</a>
+                        </div>
+                    </li>
+ 			<li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            演習コンテンツ
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+			    <a class="dropdown-item" href="../sampleq/sample-slot.php">Lv1 スロット</a>
+                            <a class="dropdown-item" href="../gacha/Gacha.html">Lv1 ガチャ</a>
+                            <a class="dropdown-item" href="../Bulletinboard_CSV-var/index.html">Lv2 掲示板</a>
+                            <a class="dropdown-item" href="../tapi/index.html">Lv3 タピオカ</a>
+                            <a class="dropdown-item" href="../gameon/gamemenu.php">Lv4 RPG</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../picture.html">ふわりん写真集</a>
+                    </li>
+                </ul>
+                <span class="navbar-text"style="color:springgreen">
+                    <h4><strong>こちらのサイトは学習サイトです</strong></h4>
+                  </span>
+            </div>
+        </nav>
+        <!--row:コンテンツの一列-->
+        <div class="row">
+            <!--col:画面を縦に12分割して、どの程度範囲を使用するか-->
+            <div class="col-12">
+
+                <div class="title">
+                    <h1>あのアイドルが！！セキュリティ学習サイト設立！！！</h1>
+                </div>
+                <!--class ="img-fluid:"画像のレスポンシブ化-->
+                <img src="./image/top.png" alt="huwa_secret" class="img-fluid">
+            </div>
+            <!--中央ぞろえ-->
+            <div class="col-12 catch" style="margin:0 auto">
+
+                <h2>☆大人気アイドルここに爆誕☆</h2>
+
+            </div>
+            <div class="col-12 col-lg-6 intro"style="border: solid gray;text-align:center">
+                <h3 style="padding-top:20px;">自己紹介</h3>
+                <br />
+                <img src ="./image/1-2.jpg"class="img-fluid">
+                <p>
+                    <h5>今日は私のサイトに来てくれてありがとう！</br>大人気アイドル兼サイバーセキュリティマイスターのふわふわふわりんです。</br><strong>皆さんがセキュリティの大切さを知ってもらうために</strong></br>このサイトを設立しました。</br>このサイトを通じてたくさんの学生の皆様に</br>セキュリティに興味を持ってくれたらうれしいです。</br>私が作った問題もあるので是非やってみてください！</br></br><strong>※ここで学習することは他のサイトにはやらないでくださいね！</br>ふわりんとの約束だよ！</strong></br>ここまで読んでくれてありがとう次は問題に挑戦してみてね！</h5>
+                </p>
+                
+                <br />
+            </div>
+            <div class="col-12 col-lg-6 sakuhin"style="border: solid gray;text-align:center">
+                <h3 style="padding-top:20px;">最初にやってほしい問題</h3>
+                <br />
+                <h5><p style=color:darkorchid><strong>＊すべての作品（演習教材）において</br>Flag~~を表示させることがクリアを意味します。</br>
+                        Flagを表示させるために、様々な方法で</br>内部を書き換えて表示させてみましょう！
+                    </strong></p></h5>
+                <p>
+                <p>スロット</p>
+                <a href="/sampleq/sample-slot.php"><img src="./image/slot.png" alt="" width="600" height="400"  /></a>
+                </p>
+                <p>
+                <p>ガチャ</p>
+                <a href="/gacha/Gacha.html"><img src="./image/gacha.png" alt="" width="600" height="400"  /></a>
+                </p>
+            </div>
+
+        </div>
+    </div>
+    
+
+
+
+
+    <script type="text/javascript" src="../js/jquery-3.5.1.js"></script>
+    <script type="text/javascript" src="../js/bootstrap.bundle.js"></script>
+</body>
+<footer>
+<h3>↓アンケートはこちら↓</h3>
+<a href="https://docs.google.com/forms/d/1DY1APAycOd4OVmOM5pF4ojsg56zLyneyg59SZfY3-OQ">S-Learningについてのアンケート</a>
+</footer>
+
+</html>

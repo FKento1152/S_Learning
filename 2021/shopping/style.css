@@ -1,0 +1,33 @@
+body{
+    margin:0;
+    padding:0;
+    background: orange
+}
+article{
+    background-color:beige;
+    max-width:640px;
+    margin:10px auto 0;
+    padding: 10px 30px 20px
+}
+#goods{
+    width: 100%;
+    border-collapse: collapse
+}
+#goods td img{
+    width:96px;
+    vertical-align: middle;
+    margin-right: 5px
+}
+#goods th{
+    text-align: left
+}
+#goods th, #goods td{
+    border:1px solid black;
+    border-left:  unset;
+    border-right: unset;
+    border-collapse: collapse
+}
+.credit{
+    text-align: center;
+    margin: 10px 0 8px
+}

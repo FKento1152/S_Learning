@@ -1,0 +1,211 @@
+html {
+  height: 100%;
+}
+
+body {
+  font-family: 'Lato', 'Noto Sans JP', sans-serif;
+  height: 100%;
+  margin: 0;
+}
+
+::selection {
+  background: #adb5bd;
+  color: #fff;
+}
+
+.card-img-overlay {
+  padding: 0;
+  top: calc(40% - 0.5rem);
+  text-align: center;
+  font-weight: bold;
+}
+
+.card-text{
+  line-height:1.7rem;
+}
+
+#game-title{
+  font-weight: 500;
+}
+
+#game-img-top{
+  opacity: 50%;
+}
+
+#pagetop-btn {
+  width: 56px;
+  height: 56px;
+  position: fixed;
+  right: 30px;
+  bottom: 40px;
+  background: #343a40;
+  opacity: 0.8;
+  border-radius: 50%;
+}
+
+#pagetop-btn a {
+  position: relative;
+  display: block;
+  width: 56px;
+  height: 56px;
+  text-decoration: none;
+  text-align: center;
+}
+
+#pagetop-btn a::before{
+  font-family: "Font Awesome 5 Free";
+  content: '\f106';
+  font-weight: 900;
+  font-size: 25px;
+  color: #fff;
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  top: 10px;
+  bottom: 20px;
+  right: 0;
+  left: 0;
+  margin: auto;
+}
+
+#ensyu-btn {
+  background: none;
+}
+
+#ensyu-btn a {
+  display: contents;
+  text-decoration: none;
+}
+
+#ensyu-btn a::before{
+  font-family: "Font Awesome 5 Free";
+  content: '\f107';
+  font-weight: 900;
+  font-size: 60px;
+  color: #fff;
+  margin: auto;
+}
+
+#ensyusiryo-disp-btn {
+  width: 56px;
+  height: 56px;
+  position: fixed;
+  right: 30px;
+  bottom: 101px;
+  background: #343a40;
+  opacity: 0.8;
+  border-radius: 50%;
+}
+
+#ensyusiryo-disp-btn a {
+  position: relative;
+  display: block;
+  width: 56px;
+  height: 56px;
+  text-decoration: none;
+  text-align: center;
+}
+
+#ensyusiryo-disp-btn a::before{
+  font-family: "Font Awesome 5 Free";
+  content: '\f46d';
+  font-weight: 900;
+  font-size: 25px;
+  color: #fff;
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  top: 10px;
+  bottom: 20px;
+  right: 0;
+  left: 0;
+  margin: auto;
+}
+
+#hint-disp-btn {
+  width: 56px;
+  height: 56px;
+  position: fixed;
+  right: 30px;
+  bottom: 162px;
+  background: #343a40;
+  opacity: 0.8;
+  border-radius: 50%;
+}
+
+#hint-disp-btn a {
+  position: relative;
+  display: block;
+  width: 56px;
+  height: 56px;
+  text-decoration: none;
+  text-align: center;
+}
+
+#hint-disp-btn a::before{
+  font-family: "Font Awesome 5 Free";
+  content: '\f0eb';
+  font-weight: 900;
+  font-size: 25px;
+  color: #fff;
+  position: absolute;
+  width: 25px;
+  height: 25px;
+  top: 10px;
+  bottom: 20px;
+  right: 0;
+  left: 0;
+  margin: auto;
+}
+
+#pagetop-btn:hover, #ensyusiryo-disp-btn:hover, #hint-disp-btn:hover{
+  opacity: 0.9;
+}
+
+.hint-balloon {
+  width: 100%;
+  margin: 2.0em 0;
+  overflow: hidden;
+}
+
+.hint-balloon .faceicon {
+  float: left;
+  margin-right: -90px;
+  width: 80px;
+}
+
+.hint-balloon .faceicon img{
+  width: 100%;
+  height: auto;
+  border: solid 3px #f8f9fa;
+  border-radius: 50%;
+}
+
+.hint-balloon .chatting {
+  width: 100%;
+}
+
+.says {
+  display: inline-block;
+  position: relative;
+  margin: 5px 0 0 105px;
+  padding: 17px 13px;
+  border-radius: 12px;
+  background: #f8f9fa;
+  opacity: 90%;
+}
+
+.says:after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: 18px;
+  left: -24px;
+  border: 12px solid transparent;
+  border-right: 12px solid #f8f9fa;
+}
+
+.says p {
+  margin: 0;
+  padding: 0;
+}

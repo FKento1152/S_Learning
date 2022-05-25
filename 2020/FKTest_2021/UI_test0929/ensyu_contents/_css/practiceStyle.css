@@ -1,0 +1,54 @@
+.thumbImg{
+	width: 144px;
+	height: 114px;
+	overflow-y: hidden;
+	background-color: black;
+	border: 1px solid black;
+}
+.thumbImg img{
+	width:100%;
+	margin: auto 0;
+}
+
+.practiceWorks{
+	border: 1px solid black;
+	border-right: none;
+	border-left: none;
+	display:flex;
+	flex-direction: row;
+	flex-wrap:wrap;
+	justify-content:center
+}
+
+.practice{
+	margin: 10px;
+}
+.practice td{
+	vertical-align:top;
+}
+.practice td:nth-child(2){
+	width: 100%;
+}
+.practice p{
+	margin:0;
+}
+.practiceDesc{
+	min-height:3em;
+	width:15em
+}
+.practice h3{
+	margin: 0;
+	border-bottom: 1px solid black;
+	display: block;
+}
+.practice h3 a{
+	color: black;
+	text-decoration: none;
+}
+.practice span{
+	font-weight: bold;
+}
+.practice .starNum{
+	color: gold;
+	text-shadow: 1px 1px goldenrod;
+}

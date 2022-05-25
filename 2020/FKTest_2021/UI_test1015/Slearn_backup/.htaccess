@@ -1,0 +1,5 @@
+AuthUserFile /home/users/2/secret.jp-learn/web/FKTest_2021/UI_test1015/Slearn_backup/.htpasswd
+AuthGroupFile /dev/null
+AuthName "仮バックアップフォルダ20211015"
+AuthType Basic
+require valid-user
