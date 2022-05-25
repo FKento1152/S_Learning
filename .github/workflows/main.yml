@@ -1,4 +1,4 @@
-name: FTP-Deploy # action名
+name: FTP-Deploy for LOLIPOP # action名
 on:
   push:
     branches:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-    name: Deploying to FTP # job名
+    name: 変更をロリポップに反映 # job名
 
     runs-on: ubuntu-latest
 
