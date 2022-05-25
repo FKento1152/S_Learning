@@ -1,19 +1,23 @@
+name: Deploy # 名前1（※お好きな名前をつけてください）
 on:
   push:
     branches:
-      - master
-name: Build and Deploy
+      - main()
+
+
 jobs:
-  FTP-Deploy-Action:
-    name: FTP-Deploy-Action     # JOBの名前
-    runs-on: ubuntu-latest      # 仮想環境の種類を指定
+  deploy:
+    name: BuildProject # 名前2（※お好きな名前をつけてください）
+
+    runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@master
-      - name: FTP-Deploy-Action
-        uses: SamKirkland/FTP-Deploy-Action@2.0.0
-        env:
-          FTP_SERVER: ${{ secrets.FTP_SERVER }}
-          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
-          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-          LOCAL_DIR: ./
-          REMOTE_DIR: ftp.lolipop.jp/web
+      - uses: actions/checkout@v2
+
+      - name: Sync files
+        uses: SamKirkland/FTP-Deploy-Action@4.1.0 #（※21年12月31日時点最新版は4.2です）
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: ${{ secrets.FTP_SERVER_DIR }}
