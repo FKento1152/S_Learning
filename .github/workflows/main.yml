@@ -7,7 +7,7 @@ on:
 
 jobs:
   deploy:
-    name: BuildProject # 名前2（※お好きな名前をつけてください）
+    name: BuildProject! # 名前2（※お好きな名前をつけてください）
 
     runs-on: ubuntu-latest
 
