@@ -27,7 +27,9 @@ class Input{
         tdr.onmousedown = tdr.ontouchstart = function(ev){
             this.codeLogger[code] = this.codeLogger[code] == 0 ? 1 : 2;
         }.bind(this);
-        tdr.onmouseup = tdr.ontouchend = function(ev){ this.codeLogger[code] = 0; }.bind(this);
+        tdr.onmouseup = tdr.onmouseleave = tdr.ontouchend = function(ev){
+            this.codeLogger[code] = 0;
+        }.bind(this);
     }
 
     static parseCode(code){

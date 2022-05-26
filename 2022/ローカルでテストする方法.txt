@@ -31,7 +31,6 @@ FFFTPを使う場合: https://okugoe.com/ffftp-lolipop/
 ■データベース編
 1. lolipopのphpMyAdminにログインする（https://mysqladmin.lolipop.jp/pma/）
 ユーザー名:	LAA1175090
-パスワード:	dFi7DUjm
 サーバー名:	mysql203.phy.lolipop.lan
 
 2. 画面左のLAA1175090-learnを選択し、画面右上のエクスポートタブをクリックしたら、簡易方法を選んでエクスポートを実行する(sqlファイルがダウンロードされる)

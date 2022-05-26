@@ -4,7 +4,6 @@
 ■データベース編
 1. lolipopのphpMyAdminにログインする（https://mysqladmin.lolipop.jp/pma/）
 ユーザー名:	LAA1175090
-パスワード:	dFi7DUjm
 サーバー名:	mysql203.phy.lolipop.lan
 
 2. 画面左のLAA1175090-learnリストを展開する
