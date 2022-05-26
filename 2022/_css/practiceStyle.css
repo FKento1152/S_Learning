@@ -47,7 +47,7 @@
 }
 .practice .starNum{
 	color: gold;
-	text-shadow: 1px 1px goldenrod;
+	text-shadow: 1px 1px 1.5px #7b642a;
 }
 
 iframe{
