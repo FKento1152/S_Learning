@@ -14,7 +14,7 @@ body{
 	background-color: var(--back-color);
 	font-family: serif;
 	color: var(--text-color1);
-	font-family: cursive, system-ui;
+	font-family: cursive, system-ui
 }
 
 h2{
