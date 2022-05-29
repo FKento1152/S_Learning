@@ -1,3 +1,6 @@
+body{
+	font-family: cursive, system-ui
+}
 ::-webkit-scrollbar {
 	width: 10px;
 	height: 10px;

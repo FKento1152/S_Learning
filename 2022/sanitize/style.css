@@ -1,6 +1,7 @@
 body{
     background-color: #f2f3f7;
-    color: #333
+    color: #333;
+    font-family: unset !important;
 }
 
 span{
@@ -30,5 +31,5 @@ h1 {
 }
 
 #hints{
-    
+
 }
