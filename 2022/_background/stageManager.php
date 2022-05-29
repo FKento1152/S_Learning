@@ -48,7 +48,7 @@ class StageManager{
 	<tr>
 		<td rowspan='2'>
 			<div class='thumbImg'>
-				{$a_tag}<img src='{$key}/thumb.png' width=\"250\" alt='thumb'></a>
+				{$a_tag}<img src='{$key}/thumb.png' width=\"250\" height=\"172\" alt='thumb'></a>
 			</div>
 		</td>
 		<td>

@@ -48,10 +48,18 @@ main{
 .comLeft{ border-radius: 0 32px 32px 0 }
 .comRight{ border-radius: 32px 0 0 32px }
 
+h1{
+    color: white;
+    margin: 4px 0;
+    border-bottom: white 2px solid;
+}
 h2{
     margin: 4px 0 0;
     color: white;
     white-space: nowrap;
+}
+a{
+    color: red !important
 }
 
 .leftTable{

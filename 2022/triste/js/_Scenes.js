@@ -15,7 +15,27 @@ class Scene_Base{
 		GraphicManager.app.stage.addChild(sprite);
 		return sprite;
 	}
-	update(){}
+	update(){
+		this.updateFilters(GraphicManager.app.stage);
+	}
+	updateFilters(sp){
+		if (sp && sp.filters) sp.filters.forEach(filter =>{
+			switch (filter.constructor){
+				case PIXI.filters.OldFilmFilter:
+					filter.sepia = Math.min(0.65, filter.sepia + 0.005);
+					filter.noise = Math.min(0.45, filter.noise + 0.002);
+					filter.vignetting = Math.min(0.3, filter.vignetting + 0.001)
+					filter.time += 0.1;
+					break;
+				case PIXI.filters.GodrayFilter:
+					filter.time += 0.02;
+					break;
+				default:
+					filter.time += 1;
+					break;
+			}
+		});
+	}
 	terminate(){
 		this._sprites.forEach(sprite => {
 			GraphicManager.app.stage.removeChild(sprite);
@@ -26,18 +46,51 @@ class Scene_Base{
 		});
 		this._sprites.length = 0;
 	}
+	pushFilterToBack(filter){
+		GraphicManager.app.stage.filters = [filter];
+	}
+	filterCentralPos(){
+		return [GraphicManager.width >> 1, GraphicManager.height >> 1];
+	}
+	isEventRunning(){ return false; }
+	simpleShockFilter(pos){
+		this.pushFilterToBack(
+			new PIXI.filters.ShockwaveFilter(
+				pos || this.filterCentralPos(),
+				{	amplitude: 4,
+					speed: 50,
+					wavelength: 200,
+					brightness: 1.5,
+					radius: 500
+				}
+			)
+		);
+	}
 }
+
 
 class Scene_Title extends Scene_Base{
 	create(){
 		super.create();
-		this.comIndex = 0;
+		this.initVariables();
 		this.createBackSprite();
 		this.createLogoSprite();
 		this.createButtons();
 	}
+	initVariables(){
+		this.comIndex = 0;
+		AudioManager.stopBgm();
+		GraphicManager.app.stage.filters = [];
+	}
 	createBackSprite(){
 		this.back = this.createSprite("2-2.png");
+		this.back.filters = [new PIXI.filters.GodrayFilter(
+			this.filterCentralPos(),{
+			gain: 0.5,
+			lacunarity: 2.8,
+			alpha: 0.6,
+			angle: 30
+		})];
 		this.back.alpha = 0;
 	}
 	createLogoSprite(){
@@ -62,6 +115,8 @@ class Scene_Title extends Scene_Base{
 		this.updateLogo();
 		this.updateCommands();
 		this.updateInput();
+		this.updateFilters(this.back);
+		this.commands.forEach(sp => this.updateFilters(sp));
 	}
 	updateBack(){
 		this.back.alpha = Math.min(1, this.back.alpha + 0.05);
@@ -92,6 +147,7 @@ class Scene_Title extends Scene_Base{
 	updateInput(){
 		if (InputManager.isTriggered('ok')){
 			AudioManager.playSe(0);
+			this.simpleShockFilter();
 			GraphicManager.sceneGoto(Scene_Stage);
 			return;
 		}
@@ -105,6 +161,32 @@ class Scene_Title extends Scene_Base{
 			this.comIndex = (this.comIndex - 1 + max) % max;
 		}
 		if (result === true){
+			const sp = this.commands[this.comIndex];
+			if (sp){
+				if (this.back.filters.length == 2){
+					this.back.filters.pop();
+				}
+				sp.filters = [
+					new PIXI.filters.ShockwaveFilter(
+						[sp.width >> 1, sp.height >> 1],
+						{	amplitude: 4,
+							speed: 20,
+							wavelength: 200,
+							brightness: 1,
+							radius: 500
+						}
+					)
+				];
+				this.back.filters.push(new PIXI.filters.ShockwaveFilter(
+					[sp.x + sp.width / 2, sp.y + sp.height / 2],
+					{	amplitude: 4,
+						speed: 20,
+						wavelength: 200,
+						brightness: 1,
+						radius: 500
+					}
+				));
+			}
 			AudioManager.playSe(1);
 			switch (this.comIndex){
 				case 0: AudioManager.stopBgm();break;
@@ -119,21 +201,46 @@ class Scene_Title extends Scene_Base{
 class Scene_Stage extends Scene_Base{
 	create(){
 		super.create();
-		StageManager.initStage();
+		this.initVariables();
 		this.createBackSprite();
 		this.createPazzleBack();
+		this.createPazzleStage();
 		this.createHoldItem();
 		this.createNextItem();
+		this.createDeletedCnt();
 		this.createCurrentMino();
-		this.refresh();
+		this.createTargetMino();
+		this.createPressAnyButton();
+	}
+	initVariables(){
+		StageManager.initVariables();
+		ScoreManager.initVariables();
+		this.lineDeletingCnt = 0;
+		this.gameOverCnt = 0;
+		this.lastDeletedCnt = -1;
+	}
+	isEventRunning(){
+		return this.lineDeletingCnt > 0 || this.gameOverCnt > 0;
 	}
 	createBackSprite(){
 		this.backSprite = this.createSprite("2-2.png");
+		this.backSprite.filters = [new PIXI.filters.GodrayFilter(
+			this.filterCentralPos(),{
+			gain: 0.5,
+			lacunarity: 2.8,
+			alpha: 0.6,
+			angle: 30
+		})];
 	}
 	createPazzleBack(){
 		this.pazzleBack = this.createSprite('background.png');
 		this.pazzleBack.position.set(200, 10);
 		this.pazzleBack.alpha = 0;
+	}
+	createPazzleStage(){
+		this.pazzleStage = this.createSprite();
+		this.pazzleStage.x = 20;
+		this.pazzleBack.addChild(this.pazzleStage);
 	}
 	createHoldItem(){
 		this.holdItemBack = this.createSprite('hold.png');
@@ -141,8 +248,10 @@ class Scene_Stage extends Scene_Base{
 		this.holdItemBack.alpha = 0;
 		// a hold mino
 		const sp = new PIXI.Sprite();
-		sp.position.set(75, 48);
-		this.holdItemBack.appendChild(sp);
+		sp.position.set(75, 90);
+		sp.scale.x = sp.scale.y = 0.75;
+		sp.anchor.x = sp.anchor.y = 0.5;
+		this.holdItemBack.addChild(sp);
 	}
 	createNextItem(){
 		this.nextItemBack = this.createSprite('next.png');
@@ -151,89 +260,196 @@ class Scene_Stage extends Scene_Base{
 		// next minos
 		for (let i = 0; i < StageManager.nextArray.length; i++){
 			const sp = new PIXI.Sprite();
-			sp.position.set(75, 48 + 100 * i);
-			this.nextItemBack.appendChild(sp);
+			sp.position.set(75, 90 + 100 * i);
+			sp.anchor.x = sp.anchor.y = 0.5;
+			sp.scale.x = sp.scale.y = 0.75;
+			this.nextItemBack.addChild(sp);
 		}
+	}
+	createDeletedCnt(){
+		this.deletedCntSprite = this.createSprite("delete.png");
+		this.deletedCntSprite.position.set(20, 300);
+		this.deletedCntSprite.alpha = 0;
+		const sp = this.createSprite();
+		sp.position.set(20, 30);
+		this.deletedCntSprite.addChild(sp);
 	}
 	createCurrentMino(){
 		this.currentMino = this.createSprite();
-		this.pazzleBack.addChild(this.currentMino);
+		this.pazzleStage.addChild(this.currentMino);
+	}
+	createTargetMino(){
+		this.targetMino = this.createSprite();
+		this.targetMino.blendMode = PIXI.BLEND_MODES.SCREEN;
+		this.targetMino.alpha = 0.75;
+		this.pazzleStage.addChild(this.targetMino);
+	}
+	createPressAnyButton(){
+		this.pressAny = this.createSprite("pressAnyButton.png");
+		this.pressAny.position.set(
+			GraphicManager.width >> 1, GraphicManager.height >> 1
+		);
+		this.pressAny.anchor.x = this.pressAny.anchor.y = 0.5;
+		this.pressAny.alpha = 0;
 	}
 	update(){
-		if (this.updateFadeIn() == false) StageManager.update();
-		this.updateSprites();
+		super.update();
+		if (this.updateFadeIn() === false){
+			StageManager.update();
+		}
+		this.updateGameOverCnt();
+		this.updateDeletingCnt();
+		this.updateFilters(this.backSprite);
+		this.updatePazzleStage();
+		this.updateCurrentMino();
+		this.updateDeletedCnt();
 	}
 	updateFadeIn(){
 		const opa = this.pazzleBack._knsCnt, max = 30;
 		if (opa < max){
 			const rate = ++this.pazzleBack._knsCnt / max;
 			this.nextItemBack.alpha = this.holdItemBack.alpha =
-			this.pazzleBack.alpha = rate;
+			this.pazzleBack.alpha = this.deletedCntSprite.alpha =
+			rate;
 			return true;
 		}else{
 			return false;
 		}
 	}
-	updateSprites(){
-		const sMino = StageManager.currentMino;
-		if (sMino){
-			if (this.currentMino.texture.width == 1){
-				sMino.mino.parseMino(this.currentMino);
+	updateCurrentMino(){
+		const cMino = StageManager.currentMino;
+		if (cMino){
+			if (cMino.needRefresh == true){
+				if (this.checkGameOver() === true){
+					cMino.needRefresh = false;
+					this.currentMino.texture = null;
+					this.targetMino.texture = null;
+					return;
+				}
+				this.currentMino.texture =
+				this.targetMino.texture =
+				cMino.mino.parseMino(cMino.direction);
+				cMino.needRefresh = false;
+				this.refreshHoldMino();
+				this.refreshNextMinos();
 			}
-			const size = sMino.mino.minoWH();
-			this.currentMino.x = sMino.x * size +
-			this.pazzleBack.x + 20;
-			this.currentMino.y = sMino.y * size +
-			this.pazzleBack.y;
+			this.currentMino.x = cMino.displayX;
+			this.currentMino.y = cMino.displayY;
+			this.targetMino.x = this.currentMino.x;
+			this.targetMino.y = cMino.targetY;
 		}else{
 			this.currentMino.texture = null;
+			this.targetMino.texture = null;
 		}
 	}
-	refresh(){
-		return;
-		this.refreshHold();
-		this.refreshNextItems();
-	}
-	refreshHold(){
-		if (this.holdItemMino){
-			this.holdItemMino.destroy();
-			GraphicManager.app.stage.removeChild(
-				this.holdItemMino
-			);
+	updatePazzleStage(){
+		if (StageManager.needRefresh === true){
+			this.refreshPazzleStage();
+			const result = StageManager.checkRemovingLines();
+			if (result.length > 0){
+				this.lineDeletingCnt = 40;
+				ScoreManager.addDeleteLine(result.length);
+			}
 		}
-		if (StageManager.holdMino){
-			let anchor = 0.5;
-			this.holdItemMino  = StageManager.holdMino.getSprite();
-			this.holdItemMino.anchor.set(anchor, anchor);
-			this.holdItemMino.position.set(
-				this.holdItemBack.x + 24, this.holdItemBack.y + 24
-			);
-			GraphicManager.app.stage.addChild(
-				this.holdItemMino
-			);
+	}
+	refreshPazzleStage(){
+		this.pazzleStage.texture = StageManager.createNewStageTexture();
+	}
+	updateDeletedCnt(){
+		const nowScore = ScoreManager.deleteCnt;
+		if (this.lastDeletedCnt !== nowScore){
+			this.lastDeletedCnt = nowScore;
+			const sp = this.deletedCntSprite.children[0];
+			sp.texture = ScoreManager.drawScore(nowScore);
+		}
+	}
+	updateDeletingCnt(){
+		if (this.lineDeletingCnt > 0){
+			switch (--this.lineDeletingCnt){
+				case 0:
+					break;
+				case 10:
+					StageManager.removeLinesToDelete();
+					this.refreshPazzleStage();
+					break;
+				case 24:
+					AudioManager.playSe(0);
+					this.refreshPazzleStage();
+					this.simpleShockFilter();
+					break;
+				case 39:
+					AudioManager.playSe(1);
+					this.currentMino.texture = null;
+					this.targetMino.texture = null;
+					break;
+			}
+		}
+	}
+	checkGameOver(){
+		if (StageManager.checkGameOver() === true){
+			this.gameOverCnt = 1;
+			this.currentMino.texture = null;
+			this.targetMino.texture = null;
+		}
+	}
+	updateGameOverCnt(){
+		if (this.gameOverCnt === 0) return;
+		if (this.gameOverCnt <= 150){
+			let removeFirst = 9;
+			switch(++this.gameOverCnt){
+				case 2:
+					AudioManager.stopBgm();
+					AudioManager.playSe(1);
+					this.simpleShockFilter();
+					break;
+				case 120:
+					AudioManager.playBgm(2);
+					this.pushFilterToBack(new PIXI.filters.OldFilmFilter(
+						{
+							sepia: 0,
+							noise: 0,
+							vignetting: 0,
+							vignettingBlur: 0.36
+						}
+					));
+					break;
+				default:
+					if (
+						this.gameOverCnt >= removeFirst &&
+						this.gameOverCnt % 3 == 0
+					){
+						StageManager.fillGameOver(
+							23 - (this.gameOverCnt / 3)
+						);
+					}
+					break;
+			}
 		}else{
-			this.holdItemMino  = null;
+			if (
+				InputManager.isTriggered('ok') ||
+				InputManager.isTriggered('cancel')
+			){
+				GraphicManager.sceneGoto(Scene_Title);
+			}
+			this.pressAny.alpha = Math.max(0, this.pressAny.alpha + 0.01);
 		}
 	}
-	refreshNextItems(){
-		if (this.nextItemMinos){
-			this.nextItemMinos.forEach(mino => {
-				GraphicManager.app.stage.removeChild(mino);
-				mino.destroy();
-			});
+	refreshHoldMino(){
+		const sp = this.holdItemBack.children[0];
+		const hold = StageManager.holdMino;
+		if (hold){
+			sp.texture = hold.parseMino(0);
+		}else{
+			sp.texture = null;
 		}
-		let x = this.nextItemBack.x + this.nextItemBack.width / 2;
-		let y = this.nextItemBack.y + 48;
-		let scale = 0.75;
-		let anchor = 0.5;
-		this.nextItemMinos = StageManager.nextArray.map(mino=>{
-			const sp = mino.getSprite();
-			sp.position.set(x, y);
-			sp.scale.set(scale, scale);
-			sp.anchor.set(anchor);
-			y += 96;
-			GraphicManager.app.stage.addChild(sp);
-			return sp;
-		});
+	}
+	refreshNextMinos(){
+		this.nextItemBack.children.forEach(mino => mino.texture = null);
+		StageManager.nextArray.forEach(function(mino, i){
+			const sp = this.nextItemBack.children[i];
+			if (sp && mino){
+				sp.texture = mino.parseMino(0);
+			}
+		}, this);
 	}
 }

@@ -6,10 +6,6 @@
 		<script src="./../_src/practice.js" type="text/javascript"></script>
 		<script src="./js/pixi.min.js" type="text/javascript"></script>
 		<script src="./js/pixi-filters.js" type="text/javascript"></script>
-		<script src="./js/_Objects.js" type="text/javascript"></script>
-		<script src="./js/_Managers.js" type="text/javascript"></script>
-		<script src="./js/_StageManager.js" type="text/javascript"></script>
-		<script src="./js/_Scenes.js" type="text/javascript"></script>
 		<link  href="./../_css/practiceIframe.css" rel="stylesheet">
 		<style>
 			body, main{ background-color: black; margin: 0; padding: 0; }
@@ -46,17 +42,16 @@
 					<img src="./img/pazzle.png" alt="line" class="line">
 					<h2>操作方法</h2>
 					<p>
-						●Z, SPACE, ENTERキー：<br>
-						決定、回転<br>
-						●矢印キー：<br>
-						移動
+						●Z, SPACE, ENTER：<br>決定、回転<br>
+						●X, ESC, バックスペース：<br>ホールド<br>
+						●矢印キー：<br>移動（上キーで即置き）
 					</p>
 					<img src="./img/pazzle.png" alt="line" class="line">
 					<table class="tetris-button-panel">
 						<tr>
-							<td class="tetris-button" id="ok-button">OK</td>
+							<td class="tetris-button" id="cancel-button">×</td>
 							<td class="tetris-button" id="up-button">↑</td>
-							<td></td>
+							<td class="tetris-button" id="ok-button">〇</td>
 						</tr>
 						<tr>
 							<td class="tetris-button" id="left-button">←</td>
