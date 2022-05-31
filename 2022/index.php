@@ -85,10 +85,11 @@ const $popQue = [
 						$name = str_repeat("?", strlen($flag["NAME"]));
 						$price = "?";
 					}
-					echo "<tr><th>No. " . $flag["ID"] .
+					echo ($i % 2 === 0 ? "<tr class='oddTR'>" : "<tr class='evenTR'>");
+					echo "<td class='spaceTD'></td><th>No. " . $flag["ID"] .
 					"</th><td>FLAG={</td><td style='width: 100%;text-align: center;'>{$name}</td><td>}</td>
 					<td style='text-align: right'>{$price}</td>
-					<td>pts</td></tr>";
+					<td>pts</td><td class='spaceTD'></td></tr>";
 				}
 				?>
 				</table>

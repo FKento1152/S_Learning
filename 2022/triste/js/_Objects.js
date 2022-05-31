@@ -71,6 +71,7 @@ class ControlPazzles extends BasePazzle{
 		super();
 		this.direction = 0;
 		this.waitCnt = 0;
+		this.waitInput = 0;
 	}
 	initPos(){
 		this.x = (StageManager.stageWidth - this.mino.size) >> 1;
@@ -178,12 +179,20 @@ class ControlPazzles extends BasePazzle{
 			}else{
 				AudioManager.playSe(1);
 			}
-		}else if (InputManager.isPressed('left')){
-			this.checkMove(-1, 0);
-		}else if (InputManager.isPressed('right')){
-			this.checkMove(+1, 0);
-		}else if (InputManager.isPressed('down')){
-			this.checkDown();
+		}else{
+			if (this.waitInput > 0){
+				this.waitInput--;
+			}
+			if (InputManager.isPressed('left')){
+				this.checkMove(-1, 0);
+				if (InputManager.isTriggered('left')) this.waitInput = 15;
+			}else if (InputManager.isPressed('right')){
+				this.checkMove(+1, 0);
+				if (InputManager.isTriggered('right')) this.waitInput = 15;
+			}else if (InputManager.isPressed('down')){
+				this.checkDown();
+				this.waitInput = 9;
+			}
 		}
 	}
 	checkMove(nx, ny, dir, not_work){
