@@ -302,3 +302,12 @@ header ul li:last-child {
 	border-width: 1px 0 0 0;
 	border-top: 2px solid var(--clear-shadow);
 }
+
+.evenTR{ background-color: #81ca91 }
+.oddTR{ background-color: #b3dfbc }
+.spaceTD{
+	background-color: #457b51;
+	width: 32px;
+	max-width: 48px;
+	min-width: 12px
+}
