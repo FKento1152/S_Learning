@@ -5,7 +5,10 @@ class Scene_Base{
 	constructor(){
 		this.create();
 	}
-	create(){ this._sprites = []; }
+	create(){
+		this.active = true;
+		this._sprites = [];
+	}
 	createSprite(imgPath){
 		const sprite = new PIXI.Sprite(
 			imgPath ? new PIXI.Texture.from("./img/"+imgPath) : null
@@ -42,9 +45,10 @@ class Scene_Base{
 			if (sprite.texture && sprite.texture.baseTexture){
 				sprite.texture.baseTexture.destroy();
 			}
-			sprite.destroy();
+			// sprite.destroy();
 		});
 		this._sprites.length = 0;
+		this.active = false;
 	}
 	pushFilterToBack(filter){
 		GraphicManager.app.stage.filters = [filter];
@@ -111,6 +115,7 @@ class Scene_Title extends Scene_Base{
 	}
 	update(){
 		super.update();
+		if (this.active === false) return;
 		this.updateBack();
 		this.updateLogo();
 		this.updateCommands();
@@ -294,6 +299,7 @@ class Scene_Stage extends Scene_Base{
 	}
 	update(){
 		super.update();
+		if (this.active === false) return;
 		if (this.updateFadeIn() === false){
 			StageManager.update();
 		}
@@ -326,8 +332,7 @@ class Scene_Stage extends Scene_Base{
 					this.targetMino.texture = null;
 					return;
 				}
-				this.currentMino.texture =
-				this.targetMino.texture =
+				this.currentMino.texture = this.targetMino.texture =
 				cMino.mino.parseMino(cMino.direction);
 				cMino.needRefresh = false;
 				this.refreshHoldMino();

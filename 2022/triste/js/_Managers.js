@@ -85,9 +85,6 @@ class AudioManager{
 		this._bgm = new Audio();
 		this._bgm.loop = true;
 		this._bgm.volume = 0.3;
-		this._se = new Audio();
-		this._se.loop = false;
-		this._se.volume = 0.3;
 	}
 	static formatAudio(src){
 		return "./audio/" + src + ".mp3"
@@ -101,8 +98,11 @@ class AudioManager{
 		this._bgm.currentTime = 0;
 	}
 	static playSe(num){
-		this._se.src = this.formatAudio(AudioManager.SES[num]);
-		this._se.play();
+		const se = new Audio();
+		se.loop = false;
+		se.volume = 0.3;
+		se.src = this.formatAudio(AudioManager.SES[num]);
+		se.play();
 	}
 };
 AudioManager.BGMS = ["1071", "1419", "1014"];
