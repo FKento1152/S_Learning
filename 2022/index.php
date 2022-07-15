@@ -94,6 +94,11 @@ const $popQue = [
 				?>
 				</table>
 			</div>
+			<h2>プレゼン資料</h2>
+			<div class="practiceWorks">
+				<iframe class="demoSlides" src="./demo.pdf" width="640" height="480">
+				</iframe>
+			</div>
 			<?php include("./_src/_ranking.php") ?>
 		</main>
 		<?php include("./_src/_footer.php") ?>

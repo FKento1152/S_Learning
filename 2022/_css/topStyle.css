@@ -311,3 +311,7 @@ header ul li:last-child {
 	max-width: 48px;
 	min-width: 12px
 }
+
+.demoSlides{
+	width: 100%
+}
