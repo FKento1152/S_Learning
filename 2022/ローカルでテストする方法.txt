@@ -48,3 +48,5 @@ https://www.javadrive.jp/xampp/mysql/index3.html
 ここまでうまくいけば、apacheとMySQLを立ち上げた状態でlocalhost:ポート番号/htdocs内に入れたフォルダ/2022/にアクセスすることで正常に動作確認を行えるようになっているはず……
 つまづいた点などなどあれば上記の連絡先に投げておいてください。
 
+デモ用スライド（コピーするなどでご活用ください）
+https://docs.google.com/presentation/d/1NQIqNzvQJQf8Vg9_znxaXFuSzBsMQMoMwGJ-qIA7JdI/edit?usp=sharing

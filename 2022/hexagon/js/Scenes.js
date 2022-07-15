@@ -602,8 +602,12 @@ class Scene_Battle extends Scene_Base{
 				}])
 			}else if (this.troop.every(battler => battler.isFainted())){
 				if ($gamePlayer.level >= 100){
-					this.stopBGM();
-					this.changeScene(Scene_Map);
+					this.stuckMessage([$dataVocab.message[12].replace("$1", $gamePlayer.name()),
+					function(){
+						this.stopBGM();
+						$gamePlayer.level = 0;
+						this.changeScene(Scene_Map);
+					}])
 				}else{
 					this.stuckMessage([$dataVocab.message[12].replace("$1", $gamePlayer.name()),
 					function(){
