@@ -98,6 +98,10 @@ const $popQue = [
 			<div class="practiceWorks">
 				<iframe class="demoSlides" src="./demo.pdf" width="640" height="480">
 				</iframe>
+				<p style="width: 100%; text-align: center; font-size: larger;">
+					<a href="./demo.pdf" target="_blank">別タブで見る</a>
+					<br>
+				</p>
 			</div>
 			<?php include("./_src/_ranking.php") ?>
 		</main>
